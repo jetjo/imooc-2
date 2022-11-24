@@ -1,0 +1,22 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Launch Program",
+      "skipFiles": [
+        "<node_internals>/**"
+      ],
+      "program": "${workspaceFolder}/app.js",
+      "cwd": "${workspaceFolder}",
+      "console": "internalConsole"
+    },
+    {
+      "type": "chrome",
+      "name": "http://127.0.0.1:3000/var,let,const的区别/window对象.html",
+      "request": "launch",
+      "url": "http://127.0.0.1:3000/var,let,const的区别/window对象.html"
+    }
+  ]
+}
