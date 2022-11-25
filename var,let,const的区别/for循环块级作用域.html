@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <title>Document</title>
+    </head>
+
+    <body>
+        <ul>
+            <li>HTML</li>
+            <li>CSS</li>
+            <li>JavaScript</li>
+            <li>jquery</li>
+            <li>HTML5</li>
+            <li>CSS3</li>
+            <li>ES6</li>
+        </ul>
+        for循环中，每循环一次就会创建一个块级作用域！！！，所以使用let声明计数器，则每次循环之间的i是属于每次循环各自的块作用域实例的！！！
+        <script type="text/javascript">
+            //补充代码
+            const lis = document.querySelectorAll('li');
+            // lis.foreach((e, i) => {
+            // });
+            for (let i = 0; i < lis.length; i++)
+            {
+                lis[i].addEventListener('mouseenter', (e) =>
+                {
+                    e.target.innerHTML += `我是第${ i }个`;
+                    e.target.style.color = 'red';
+                    e.target.style.fontSize = '1.3em'
+                });
+                lis[i].addEventListener('mouseleave', (e) =>
+                {
+                    e.target.innerHTML = e.target.innerHTML.replace(/我是第\d+个$/, '');
+                    e.target.style.color = 'black'
+                    e.target.style.fontSize = '1em'
+                });
+            }
+
+
+        </script>
+    </body>
+
+</html>

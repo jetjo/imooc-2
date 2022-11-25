@@ -7,6 +7,7 @@
 
 // import './var,let,const的区别/重复声明.js';
 // import './var,let,const的区别/变量提升.js';
-import './var,let,const的区别/暂时性死区.js';
+// import './var,let,const的区别/暂时性死区.js';
+import './块级作用域.js';
 
 console.log('Hello world');
