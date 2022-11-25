@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>this指向</title>
+    </head>
+
+    <body>
+        函数中的this和函数在哪调用无关，而是取决于谁调用了函数，谁调用的，this就指向谁；
+        除了使用new关键字调用构造函数是一个特例，这时候this指向实例好的对象。
+        <script>
+            'use strict'
+            console.log(this);// 不论是否在严格模式下，都指向window对象
+
+            function fn()
+            {
+                console.log(this);
+            }
+            fn();//严格模式this指向undefined，非严格模式下指向window
+
+            window.fn();//无论是严格模式还是非严格模式都指向window
+
+            const obj = {
+                fn
+            }
+            obj.fn();
+
+            const fnb = obj.fn;
+            fnb();
+        </script>
+    </body>
+
+</html>

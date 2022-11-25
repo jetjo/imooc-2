@@ -24,12 +24,14 @@
             // });
             for (let i = 0; i < lis.length; i++)
             {
+                //事件名称不是mouseEnter，而是mouseenter!!!
                 lis[i].addEventListener('mouseenter', (e) =>
                 {
                     e.target.innerHTML += `我是第${ i }个`;
                     e.target.style.color = 'red';
                     e.target.style.fontSize = '1.3em'
                 });
+                //事件名称不是mouseLeave，而是mouseleave
                 lis[i].addEventListener('mouseleave', (e) =>
                 {
                     e.target.innerHTML = e.target.innerHTML.replace(/我是第\d+个$/, '');

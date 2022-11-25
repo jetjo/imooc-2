@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>箭头函数中的this</title>
+    </head>
+
+    <body>
+        箭头函数没有自己的this!!! <br>
+        运行时，箭头函数所形成的作用域没有自己的this, <br>
+        <!-- 运行起来以后，箭头函数的作用域中，如果要引用this,会向外层的作用域寻找this, <br>
+        而外层作用域如果是函数作用域，那么this就取决于这个外层函数是如何调用的，<br>
+        如果一直沿着作用域由里向外到了全局作用域，那么this就是全局作用域的this。<br> -->
+        箭头函数实例的this，就是定义箭头函数的普通函数在被调用的那一刻（被调用时，这个普通函数也是一个实例），在被调用的那一刻，普通函数实例形成了一个普通函数作用域的实例，
+        这个普通函数作用域实例的this是什么（eg:xxx），那么普通函数在被调用的那一刻,执行时被定义在被调用的这个普通函数内部的箭头函数所产生的箭头函数实例的this就是什么（eg:xxx)
+
+        简而言之，箭头函数的this,就是定义它的普通函数的this;
+
+        出现在普通函数内部的所有箭头函数，即使箭头函数与箭头函数之间也有包含关系，这无所谓，
+        这个普通函数被调用一次，那么这些箭头函数就会在内存中产生一个实例，所有这些实例的this,都绑定到了普通函数执行时，这个普通函数所形成的作用域上；
+        这个普通函数在被调用一次，那么又会在内存中产生一批新的箭头函数的实例，这些实例和之前调用这个普通函数形成的箭头函数的实例不是一个。
+        <script>
+            const obj = {
+                fn: function ()
+                {
+                    const arFn = () => console.log(this);//这里的this,就是函数或者说方法fn在运行时的this
+                    arFn();
+                },
+                fnr: function ()
+                {
+                    return () => console.log(this, 'this');
+                }
+            }
+            obj.fn();
+            const arFn = obj.fn;
+            arFn();
+            const arFnr = obj.fnr();
+            arFnr();
+        </script>
+
+        <script>
+            function foo()
+            {
+                return () =>
+                {
+                    return () =>
+                    {
+                        return () =>
+                        {
+                            console.log('id:', this.id);
+                            return this;
+                        }
+                    }
+                }
+            }
+            const thisObj = { id: 1 }
+            const f = foo.call({ id: 1 });//foo函数被调用了两次产生了两个不同的普通函数作用域scoop1和scoop2,scoop1和scoop2的this是不一样的，其内部定义的箭头函数的this也就不一样了
+            const f1 = foo.call(thisObj);//foo函数被调用了两次产生了两个不同的普通函数作用域scoop1和scoop2,scoop1和scoop2的this是不一样的，其内部定义的箭头函数的this也就不一样了
+            const f11 = foo.call(thisObj);
+
+            const this1 = f.call({ id: 2 })()();
+            const this2 = f().call({ id: 3 })();
+            const this3 = f()().call({ id: 4 });
+
+            const this11 = f1.call({ id: 2 })()();
+            const this111 = f11.call({ id: 2 })()();
+            console.log({ this1, this11, this111 }, this1 === this11, this111 === this11, f === f1, f11 === f1, f === f11);
+        </script>
+    </body>
+
+</html>

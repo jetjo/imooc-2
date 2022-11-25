@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>模板字符串</title>
+    </head>
+
+    <body>
+        模板字符串是所见即所得的，换行、空格、制表、缩进等都是合法的
+        <script>
+            let str = "苹果\n香蕉";
+            let str1 = `苹果\n香蕉`;
+            let str2 = `苹果
+            香蕉`;
+            let str3 = `苹果
+香蕉`;
+            console.log(str);
+            console.log(str1);
+            console.log(str2);
+            console.log(str3);
+            console.log(str === str1);
+            console.log(str === str2);
+            console.log(str === str3);
+
+            //输出`\等特殊字符
+            console.log(`\`\\`);
+        </script>
+    </body>
+
+</html>
