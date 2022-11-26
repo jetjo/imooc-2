@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <title>Document</title>
+        <style>
+            div {
+                width: 300px;
+                margin: 20px 0;
+                line-height: 30px;
+                background: yellowgreen;
+            }
+
+        </style>
+    </head>
+
+    <body>
+        <button id="start">开始</button>
+        <button id="stop">停止</button>
+        <div id="box"></div>
+        <script>
+            const startBtn = document.getElementById('start')
+            const stopBtn = document.getElementById('stop')
+            const box = document.getElementById('box')
+            var show = {
+                content: "Hello World",
+                timer: null,
+                start: function ()
+                {
+                    // 在此补充代码
+                    startBtn.addEventListener('click', () =>
+                    {
+                        if (this.timer)
+                        {
+                            console.warn(this.timer, '已经启动了~');
+                            return;
+                        }
+                        box.innerHTML = this.content;
+                        this.timer = setInterval(() =>
+                        {
+                            this.content += ` Hello World`;
+                            box.innerHTML = this.content;
+                        }, 1000)
+                    }, false);
+                    stopBtn.addEventListener('click', () => this.stop(), false);
+                },
+                stop: function ()
+                {
+                    // 在此补充代码
+                    clearInterval(this.timer);
+                    this.timer = null;
+                    this.content = 'Hello World';
+                },
+            }
+            // 在此补充代码
+            show.start();
+
+
+
+        </script>
+    </body>
+
+</html>

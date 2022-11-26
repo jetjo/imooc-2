@@ -29,6 +29,18 @@
       "name": "http://127.0.0.1:3000/this指向/1.html",
       "request": "launch",
       "url": "http://127.0.0.1:3000/this指向/1.html"
+    },
+    {
+      "type": "chrome",
+      "name": "http://127.0.0.1:3000/var,let,const的区别/箭头函数应用.html",
+      "request": "launch",
+      "url": "http://127.0.0.1:3000/var,let,const的区别/箭头函数应用.html"
+    },
+    {
+      "type": "chrome",
+      "name": "http://127.0.0.1:3000/this指向/箭头函数中的this.html",
+      "request": "launch",
+      "url": "http://127.0.0.1:3000/this指向/箭头函数中的this.html"
     }
   ]
 }

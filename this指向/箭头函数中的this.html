@@ -11,6 +11,7 @@
     <body>
         箭头函数没有自己的this!!! <br>
         运行时，箭头函数所形成的作用域没有自己的this, <br>
+        就是说运行时，箭头函数形成的作用域内没有预先定义this和arguments！！！ <br>
         <!-- 运行起来以后，箭头函数的作用域中，如果要引用this,会向外层的作用域寻找this, <br>
         而外层作用域如果是函数作用域，那么this就取决于这个外层函数是如何调用的，<br>
         如果一直沿着作用域由里向外到了全局作用域，那么this就是全局作用域的this。<br> -->
@@ -50,16 +51,17 @@
                     {
                         return () =>
                         {
-                            console.log('id:', this.id);
+                            // console.log('id:', this.id);
+                            console.log('id:', arguments[0].id);
                             return this;
                         }
                     }
                 }
             }
             const thisObj = { id: 1 }
-            const f = foo.call({ id: 1 });//foo函数被调用了两次产生了两个不同的普通函数作用域scoop1和scoop2,scoop1和scoop2的this是不一样的，其内部定义的箭头函数的this也就不一样了
-            const f1 = foo.call(thisObj);//foo函数被调用了两次产生了两个不同的普通函数作用域scoop1和scoop2,scoop1和scoop2的this是不一样的，其内部定义的箭头函数的this也就不一样了
-            const f11 = foo.call(thisObj);
+            const f = foo.call({ id: 1 }, { id: 1222 });//foo函数被调用了两次产生了两个不同的普通函数作用域scoop1和scoop2,scoop1和scoop2的this是不一样的，其内部定义的箭头函数的this也就不一样了
+            const f1 = foo.call(thisObj, thisObj);//foo函数被调用了两次产生了两个不同的普通函数作用域scoop1和scoop2,scoop1和scoop2的this是不一样的，其内部定义的箭头函数的this也就不一样了
+            const f11 = foo.call(thisObj, thisObj);
 
             const this1 = f.call({ id: 2 })()();
             const this2 = f().call({ id: 3 })();

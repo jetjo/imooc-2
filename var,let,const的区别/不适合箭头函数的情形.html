@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+
+    <body>
+        `1、不能作为构造函数 <br>
+        2、不适合用于this需要指向调用者的场景 <br>
+        3、不适合需要使用arguments的时候` <br>
+        <br>
+        模版字符串直接写在html中没有所见即所得的效果。。。
+        <script>
+            const Person = (name) =>
+            {
+                this.name = name;
+            }
+            const person = new Person('Gigi');// Uncaught TypeError: Person is not a constructor
+        </script>
+        <script>
+
+        </script>
+        <script name="codeBlock 1">
+            // 'use strict'
+            const getSum = () => arguments.reduce((cur, pre) => cur + pre, 0);
+            getSum(1, 2, 3, 4, 5);// Uncaught ReferenceError: arguments is not defined
+        </script>
+        <br>
+        如果将codeBlock 1和codeBlock 2合并到一个&lt;script>&lt;/script>中，那么codeBlock 1中抛出异常，codeBlock 2的代码不会被执行
+        <script name="codeBlock 2">
+
+            // 'use strict'
+            // function getSum()// Uncaught SyntaxError: Identifier 'getSum' has already been declared, 即使是在不同的script块中
+            function getSumFn()
+            {
+                // return arguments.reduce((cur, pre) => cur + pre, 0);// Uncaught TypeError: arguments.reduce is not a function
+                return [...arguments].reduce((cur, pre) => cur + pre, 0);
+            }
+
+            console.log(getSumFn(1, 2, 3, 4, 5));
+        </script>
+    </body>
+
+</html>
