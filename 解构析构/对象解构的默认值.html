@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>对象解构的默认值</title>
+    </head>
+
+    <body>
+        1、对象解构时，只有属性名对应的属性值严格等于undefined时，才会去求默认值
+        <script>
+            const girl = {
+                name: '柳如是',
+                nickName: '',
+                preName: null, //undefined,
+                sonName: undefined,
+                _配偶: undefined
+            }
+            function getDefName()
+            {
+                console.log('获取默认值');
+                return '杨兵'
+            }
+            const { preName = getDefName(), _配偶 = getDefName() } = girl;
+            console.log({ preName, _配偶 });
+        </script>
+    </body>
+
+</html>

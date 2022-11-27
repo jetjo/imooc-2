@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>展开运算符的应用</title>
+    </head>
+
+    <body>
+        和解构不同，在{}中展开undefined和null不会报错
+        <script>
+            const num = [1, 2, 3, 4, 5]
+            const min = Math.min(...num);
+            console.log(min, Math.min.apply(null, num));
+
+            const name = '是如应我见山青料，媚妩多山青见我';
+            console.log([...name].reverse().join(''));
+            console.log(name.split('').reverse().join(''));
+
+            const undef = undefined;
+            // console.log(...undef);// Uncaught TypeError: undef is not iterable (cannot read property undefined)
+            // console.log([...undef]);
+            console.log({ ...undef });
+
+            // const { a } = undef;
+
+            const nil = null;
+            // console.log(...nil);// Uncaught TypeError: nil is not iterable(cannot read property null)
+            // console.log([...nil]);
+            console.log({ a: 1, ...nil });
+            // const [a] = nil;
+        </script>
+    </body>
+
+</html>

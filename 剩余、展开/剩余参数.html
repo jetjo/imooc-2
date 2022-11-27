@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>剩余参数</title>
+    </head>
+
+    <body>
+        剩余参数必须是最后一个
+        <script>
+            // function fn(a, b, ...rest, z)// A rest parameter must be last in a parameter list.
+            function fn(a, b, ...rest)
+            {
+                console.log({ a, b, rest });
+                console.log({ a, b, ...rest });
+            }
+
+            // fn()
+            // // fn(1)
+            // // fn(1, 5)
+            // fn(1, 5, 8, 'hhh')
+
+            // function fn1({a,b,...rest, z})// A rest element must be last in a destructuring pattern.
+            function fn1({ a, b, ...rest })
+            {
+                console.log({ a, b, rest });
+                console.log({ a, b, ...rest });
+            }
+            // fn1();// Uncaught TypeError: Cannot destructure property 'a' of 'undefined' as it is undefined.
+            // fn1(null);//Uncaught TypeError: Cannot destructure property 'a' of 'object null' as it is null.
+            fn1(0)// 0被装箱了 变成了new Number(0)
+            fn1(false)
+            fn1('')
+            fn1('abcd')
+
+            fn1({ a: 1, c: 'c', e: 2 })
+
+        </script>
+    </body>
+
+</html>
