@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Set、Map</title>
+    </head>
+
+    <body>
+        Set中的元素是不能重复的，
+        NaN === NaN 是false，
+        但是Set中只能有一个NaN；<br>
+        Map中的键也是不呢重复的，和Set一样，NaN是特列
+
+        <br>数组、字符串去重
+        <script>
+            const arr = [0, 1, 2, 2, 2, 3, NaN, NaN]
+            console.log([...new Set(arr)]);
+
+            const name = '柳如是柳如是'
+            console.log([...new Set(name)].join(''))
+        </script>
+        <br>Set和数组的区别，Set只能通过调用forEach方法一次获取每个元素，而不能和数组似的通过下标单独访问某个元素
+        <br>调用Set的forEach遍历每个元素时，顺序是按照元素添加的顺序遍历的
+        <script>
+            const set = new Set([9, 0])
+            set.add(1).add(3);
+            set.forEach((value, key, _set) => console.log({ value, key, _set, eq: _set === set, _this: this }), { name: 'this' })
+        </script>
+    </body>
+
+</html>
