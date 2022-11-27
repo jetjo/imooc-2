@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>数组解构的默认值</title>
+    </head>
+
+    <body>
+        数组解构的默认值生效的条件是，被解构出来的值严格等于undefined
+
+        <script>
+            const arr1 = [1, 6,]
+            const arr2 = [1, 6, undefined]
+            const arr3 = [1, 6, null]
+            const arr4 = [1, 6, 0]
+            const arr5 = [1, 6, '']
+            const arr6 = [1, 6, NaN]
+
+            function getDefValue(arrName, arr, index)
+            {
+                console.log(`在结构数组[${ arr.map(e => e + '').join() }]，获取索引为${ index }的成员的值时，我被调用了`);
+                return parseInt(Math.random() * 100);
+            }
+
+            const [, , t11 = getDefValue('arr1', arr1, 2)] = arr1;
+            const [, , t21 = getDefValue('arr2', arr2, 2)] = arr2;
+            const [, , t31 = getDefValue('arr3', arr3, 2), , , __t32 = getDefValue('arr3', arr3, 5)] = arr3;
+            const [, , t41 = getDefValue('arr4', arr4, 2)] = arr4;
+            const [, , t51 = getDefValue('arr5', arr5, 2)] = arr5;
+            const [, , t61 = getDefValue('arr6', arr6, 2)] = arr6;
+        </script>
+    </body>
+
+</html>
