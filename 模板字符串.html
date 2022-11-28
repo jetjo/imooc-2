@@ -10,6 +10,10 @@
 
     <body>
         模板字符串是所见即所得的，换行、空格、制表、缩进等都是合法的
+        <div id="div1"></div>
+        <div id="div11"></div>
+        <span id="span1"></span>
+        <span id="span11"></span>
         <script>
             let str = "苹果\n香蕉";
             let str1 = `苹果\n香蕉`;
@@ -27,6 +31,12 @@
 
             //输出`\等特殊字符
             console.log(`\`\\`);
+        </script>
+        <script>
+            div1.innerHTML = str2;
+            div11.innerHTML = str3;
+            span1.innerHTML = str2;
+            span11.innerHTML = str3;
         </script>
     </body>
 
