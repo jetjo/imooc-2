@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>类中模拟私有属性</title>
+    </head>
+
+    <body>
+        <script>
+            (function ()
+            {
+                let name = '';
+                class Person
+                {
+                    constructor(uname, uage)
+                    {
+                        name = uname;
+                        this.age = uage;
+                    }
+                    getName()
+                    {
+                        return name;
+                    }
+                    speak()
+                    {
+                        console.log(`I'm ${ this.age } years old!, my name ${ name }.`);
+                    }
+                }
+                window.Person = Person;
+            })();
+
+            const alex = new Person('alex', 30);
+            const anna = new Person('anna', 27);
+            alex.speak();
+            anna.speak();
+        </script>
+    </body>
+
+</html>

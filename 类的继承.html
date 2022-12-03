@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>类的继承</title>
+    </head>
+
+    <body>
+        <script>
+            class Person
+            {
+                constructor(name, age)
+                {
+                    this.name = name;
+                    this.age = age;
+                }
+
+                speak()
+                {
+                    console.log(`i am person, my name is ${ this.name }`);
+                }
+
+                static Log(msg)
+                {
+                    console.log(this, msg);
+                }
+            }
+            Person.version = '1.0'
+
+            class Programmer extends Person
+            {
+                constructor(name, age)
+                {
+                    super(name, age);
+                    this.feature = '秃头'
+                }
+                speak()
+                {
+                    super.speak();
+                    console.log(`i am person, my name is ${ this.name }`);
+                }
+
+                static Log(msg)
+                {
+                    super.Log();
+                }
+            }
+
+            // console.log(Programmer);
+            // console.log(Programmer.Log);
+            // console.log(Programmer.Log === Person.Log);
+            // console.log(Programmer.__proto__);
+            console.log(Programmer.__proto__ === Person);
+            // console.log(Programmer.__proto__.Log === Person.Log);
+
+            // console.log(Programmer.prototype);
+            // console.log(new Person());
+            // console.log(Programmer.prototype.__proto__);
+            // console.log(Person.prototype);
+            console.log(Programmer.prototype.__proto__ === Person.prototype);
+        </script>
+    </body>
+
+</html>

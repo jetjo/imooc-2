@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Promise</title>
+    </head>
+
+    <body>
+        <script>
+            const finallyCb = res => console.log(res, 'finally');
+            // Promise.reject('error 1').then(() =>
+            Promise.resolve(1).then(() =>
+            {
+                return 2;// 底层被封装为了return Promise.resolve(2)的形式
+                // return Promise.resolve(2);
+                // 如果不写return或者不throw, 相当于return Promise.resolve()
+            }, (error) =>
+            {
+                throw new Error(error + ', error 2.');// 底层被封装为了return Promise.reject(error + ', error 2.')
+                // return Promise.reject(error + ', error 2.')
+                // 如果不写return或者不throw, 相当于return Promise.resolve()
+            })
+                // .finally(finallyCb)// 本质上也是then的特例
+                .then((res) =>
+                {
+                    finallyCb();
+                    return res;
+                }, (e) =>
+                {
+                    finallyCb();
+                    throw e;
+                })
+                .then(e => console.log(e))
+                .catch(e => console.error(e));//本质是then(null,(e) => ...)
+        </script>
+    </body>
+
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>keys values entries</title>
+    </head>
+
+    <body>
+
+        <script>
+            const arr = ['dfe', '', 'ghe', 3, , 5];
+            // console.log(arr.keys());
+            // console.log(arr.values());
+            // console.log(arr.entries());
+            // console.log(arr.keys().next());
+            // console.log(arr.values().next());
+            // console.log(arr.entries().next());
+            // // console.log(arr.next()); Uncaught TypeError: arr.next is not a function
+            // for (const [index, value] of arr.entries())
+            // {
+            //     console.log([index, value]);
+            // }
+        </script>
+
+        <script>
+            const obj = {
+                name: 'alex',
+                age: 30
+            }
+            console.log(Object.keys(obj));// ES6之前就有的方法，那时候还没有Symbol.iterator
+            console.log(Object.values(obj));
+            console.log(Object.entries(obj));
+            // console.log(Object.keys(obj).next());// Uncaught TypeError: Object.keys(...).next is not a function
+            // console.log(Object.values(obj).next());
+            // console.log(Object.entries(obj).next());
+        </script>
+    </body>
+
+</html>

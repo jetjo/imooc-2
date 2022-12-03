@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>FORIN</title>
+    </head>
+
+    <body>
+        <script>
+            const arr = ['dfe', '', 'ghe', 3, , 5];
+            for (const key in arr)
+            {
+                // if (Object.hasOwnProperty.call(arr, key))//加不加一样
+                // {
+                const element = arr[key];
+                console.log(key, element);
+                // }
+            }
+        </script>
+        <script>
+            const obj = {
+                name: 'alex',
+                age: 30
+            }
+            for (const key in obj)
+            {
+                // if (Object.hasOwnProperty.call(obj, key))
+                // {
+                const element = obj[key];
+                console.log(key, element);
+                // }
+            }
+        </script>
+    </body>
+
+</html>

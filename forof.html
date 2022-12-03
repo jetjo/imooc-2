@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>FOROF</title>
+    </head>
+
+    <body>
+        <script>
+            const arr = ['dfe', '', 'ghe', 3, , 5];
+            for (const iterator of arr)
+            {
+                // console.log(iterator);
+            }
+        </script>
+        <script>
+            const obj = {
+                name: 'alex',
+                age: 30
+            }
+            // for (const iterator of obj) Uncaught TypeError: obj is not iterable
+            // {
+            //     console.log(iterator);
+            // }
+        </script>
+        forof背后的原理
+        <script>
+            // forof背后的原理
+            const iterator = arr[Symbol.iterator]();
+            let next = iterator.next();
+            while (!next.done)
+            {
+                // console.log(next.value);//, 'while');
+                next = iterator.next();
+            }
+        </script>
+        改造obj对象，使其可迭代
+        <script>
+            // 改造obj对象，使其可迭代
+            Object.assign(obj, {
+                0: obj.age,
+                1: obj.name,
+                2: obj.toString(),
+                '3': 'xxx',
+                3: 'ssssssssssxxx',
+                '3': 'xxx',
+                length: 5
+                // length: 3
+                // length: 4
+            });
+            obj[Symbol.iterator] = Array.prototype[Symbol.iterator];
+            obj.next = () =>
+            {// 这样解决不了迭代的问题
+                return {
+                    value: 1,
+                    done: false
+                }
+            }
+            console.log(obj.next());;
+            for (const iterator of obj)
+            {
+                console.log(iterator);
+            }
+            // Object.
+        </script>
+    </body>
+
+</html>
