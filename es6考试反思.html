@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>ES6考试反思</title>
+    </head>
+
+    <body>
+        Class是一种语法糖，写在构造函数外面的默认赋值语句其实要在构造函数中执行，所以箭头函数中的this会绑定到构造函数执行时的上下文上，也就是对应的类实例上 <br>
+        全局中使用const、let声明的变量不会像var一样自动绑定到全局上下文中 <br>
+
+        <script>
+            let lAge = 15;
+            var wAge = 16;
+            const age = 17;
+            const _wSay = () => console.log(this.age, this.lAge, this.wAge);
+            // let lPerson = class Person Uncaught ReferenceError: Person is not defined
+            let Person = class 
+            {
+                constructor(age)
+                {
+                    this.age = age;
+                    // this.age = age || 18;
+                    // this.say = () => console.log(this.age); 
+                    // this.wSay = _wSay;
+                    this.eat = () => this._eat();
+                }
+                age = 18;//这句其实要在构造函数中执行
+                static age = 19;
+                say = () => console.log(this.age);//这句其实要在构造函数中执行
+                wSay = _wSay;//这句其实要在构造函数中执行
+
+                _eat()// 约定俗成，下划线开头的成员是私有的，在方法外面不要调用
+                {
+                    console.log(`I am ${ this.age } years old!`);
+                }
+            }
+            const zsh = new Person(20);
+            zsh.say();
+            zsh.wSay();
+            {
+                const eat = zsh.eat;
+                eat();
+            }
+            // window.eat = zsh._eat;
+            window.eat = zsh.eat;
+            eat();
+            window.eat();
+            let p = {
+                age: 1,
+                // eat: zsh._eat
+                eat: zsh.eat
+            }
+            p.eat();
+
+        </script>
+
+        <script>
+            let c = new class
+            {
+                constructor()
+                {
+                    console.log('imooc');
+                }
+            }();
+        </script>
+
+        <script>
+            function fn(n)
+            {
+                return () =>
+                {
+                    const [m] = arguments;
+                    return m + n;
+                }
+            }
+            const f = fn(2);
+            console.log(f());
+        </script>
+
+        <script>
+            let a = 10;
+            var va = 11;
+            const foo = () =>
+            {
+                console.log(this.a, this.va, 'foo()');
+                return obj = {
+                    a: 2,
+                    va: 3,
+                    afn: () =>
+                    {
+                        let a = 5;
+                        let va = 6;
+                        setTimeout(() =>
+                        {
+                            console.log(this.a, this.va, 'afn()');
+                        }, 1000);
+                    },
+                    fn()
+                    {
+                        let a = 5;
+                        let va = 6;
+                        setTimeout(() =>
+                        {
+                            console.log(this.a, this.va, '?.fn()');
+                        }, 1000);
+                    }
+                }
+            }
+
+            // const result = foo();
+            // result.fn();
+            // result.afn();
+
+            let bar = {
+                a: 'bar a',
+                va: 'bar va',
+                foo,
+                fn: foo().fn,
+                afn: foo().afn
+            }
+
+            const result = bar.foo();
+            result.fn();
+            result.afn();
+            bar.fn();
+            bar.afn();
+        </script>
+    </body>
+
+</html>

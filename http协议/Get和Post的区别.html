@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Get和Post的区别</title>
+    </head>
+
+    <body>
+        <ul>
+            <li>语义上的区别，在RESTFul风格的接口上，Http method的语义会被充分利用，get表示获取资源，post表示创建资源</li>
+            <li>Get请求只能将发送的数据放在请求首部的路径中，有长度限制，顶多能发送几K数据，Post还可以将数据放在请求体中，理论上可以携带无限多数据</li>
+            <li>Get请求发送的数据就在Url中，而浏览器的历史记录是可以记住所访问过的地址的，所以Get请求会被缓存</li>
+            <li>Get请求安全性更低，直接在Url中传递数据，存在被被人窥屏的风险，并且可以通过查看浏览器历史记录轻松获取到发送的数据</li>
+        </ul>
+    </body>
+
+</html>

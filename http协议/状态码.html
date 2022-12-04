@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>HTTP状态码语义</title>
+    </head>
+
+    <body>
+        <ul>
+            <li>100-199 请求正在被处理</li>
+            <li>200-299 请求成功完成</li>
+            <li>300-399
+                <ul>
+                    <li>301 永久性移动 浏览器再通过301响应头部的Location跳到新的地址，301响应会被缓存到本地硬盘，再次访问原来的地址<br>
+                        时，不再将请求发到服务器，而是直接从缓存中取出之前301响应中Location指定的地址，所以如果服务端再次更改了重定向的地址，浏览器需要清除缓存 <br>
+                        才能获取到新的重定向地址</li>
+                    <li>302 临时性重定向，例如单点登录成功后重定向回</li>
+                    <li>304 未修改 用于浏览器发起请求查询一下本地某个文件缓存是否过期</li>
+                </ul>
+            </li>
+            <li>400-499 请求错误 前端的问题
+                <ul>
+                    <li>400 Bad Request</li>
+                    <li>404 Not found</li>
+                </ul>
+            </li>
+            <li>500-599 请求处理错误 后端的问题</li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </body>
+
+</html>
