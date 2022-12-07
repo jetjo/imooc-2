@@ -19,7 +19,7 @@ YCookie.get = (function ()
         const reg = new RegExp(`${ name }=(?<value>.*);?`);
         const res = reg.exec(document.cookie)?.groups?.value;//TODO: 不同domain、path的cookie的name是可以相同的，此处暂未考虑会有多个匹配的问题，
         //TODO: 一种解决办法是存入时，以自定义的格式将domain和path存入value中
-
+        res && (res = decodeURIComponent(res));
         return res;
     }
 }).call(YCookie);
@@ -64,6 +64,6 @@ YCookie.remove = (function ()
     return (name) =>
     {
         if (!name || !document.cookie) return;
-        YCookie.set(name, '', { expires: -1 })
+        YCookie.set(name, '', { maxAge: -1 })//TODO: 未测
     }
 }).call(YCookie);
