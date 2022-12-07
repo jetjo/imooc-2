@@ -17,7 +17,7 @@ YCookie.get = (function ()
         // const reg = new RegExp(`${ name }=(?<value>.*?);?`);//分号可能没有，如果是在末尾 失败 
         // const reg = new RegExp(`${ name }=(?<value>.+?);?`);//失败 加问号只能匹配到value中的第一个字符
         const reg = new RegExp(`${ name }=(?<value>.*);?`);
-        const res = reg.exec(document.cookie)?.groups?.value;//TODO: 不同domain、path的cookie的name是可以相同的，此处暂未考虑会有多个匹配的问题，
+        let res = reg.exec(document.cookie)?.groups?.value;//TODO: 不同domain、path的cookie的name是可以相同的，此处暂未考虑会有多个匹配的问题，
         //TODO: 一种解决办法是存入时，以自定义的格式将domain和path存入value中
         res && (res = decodeURIComponent(res));
         return res;
