@@ -9,7 +9,9 @@
     </head>
 
     <body>
-        和解构不同，在{}中展开undefined和null不会报错
+        和解构不同，在{}中展开undefined和null不会报错 <br>
+
+        在大括号中对null, undefined展开不会报错，但是如果直接对null、undefined进行解构则不行
         <script>
             const num = [1, 2, 3, 4, 5]
             const min = Math.min(...num);
@@ -24,6 +26,7 @@
             // console.log([...undef]);
             console.log({ ...undef });
 
+
             // const { a } = undef;
 
             const nil = null;
@@ -31,6 +34,14 @@
             // console.log([...nil]);
             console.log({ a: 1, ...nil });
             // const [a] = nil;
+
+            // const { a } = undefined;Uncaught TypeError: Cannot destructure property 'a' of 'undefined' as it is undefined.
+            // const { a } = null; Uncaught TypeError: Cannot destructure property 'a' of 'null' as it is null.
+            let { a, length } = '';
+            console.log({ a, length });
+
+            let { a1, length: length1 } = 0;
+            console.log({ a1, length1 });
         </script>
     </body>
 
