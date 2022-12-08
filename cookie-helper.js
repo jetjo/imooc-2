@@ -16,7 +16,10 @@ YCookie.get = (function ()
         // const reg = new RegExp(`${ name }=(?<value>.+?);`);document.cookie='name='是合法的
         // const reg = new RegExp(`${ name }=(?<value>.*?);?`);//分号可能没有，如果是在末尾 失败 
         // const reg = new RegExp(`${ name }=(?<value>.+?);?`);//失败 加问号只能匹配到value中的第一个字符
-        const reg = new RegExp(`${ name }=(?<value>.*);?`);
+        // const reg = new RegExp(`${ name }=(?<value>.*);?`);//不行, 假如，cookie中有两个名字为campCode和campCode1的值，res的结果是：value; campCode1=xxx; campCodex=xxx
+        // const reg = new RegExp(`${ name }=(?<value>[^;]*);?`);//不行, 结果同上
+        // const reg = new RegExp(`${ name }=(?<value>[^;]*);?\b`);//不行, res是undefined
+        const reg = new RegExp(`${ name }=(?<value>[^\;\=\s]*);?`);
         let res = reg.exec(document.cookie)?.groups?.value;//TODO: 不同domain、path的cookie的name是可以相同的，此处暂未考虑会有多个匹配的问题，
         //TODO: 一种解决办法是存入时，以自定义的格式将domain和path存入value中
         res && (res = decodeURIComponent(res));
