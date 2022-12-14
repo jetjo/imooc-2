@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Get请求</title>
+    </head>
+
+    <body>
+        <ul>
+            <li>当请求所携带的参数包含如汉子等非英文字母时，应该自己调用编码方法进行编码后再传输，虽然浏览器在发送请求时可能会自动编码，<br>
+                但是不同浏览器采用的编码方式可能不同，而对应的同一个服务端使用的解码方式只能是一种，所以要自己主动编码后再发起请求。</li>
+            <li>form表单也可以使用GET方式，此时如果action对应的url中也有名值对形式的请求参数，则这些参数会被丢弃，所以所有参数都应使用input定义。</li>
+        </ul>
+
+        <script>
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', `./data.json?user=${ encodeURIComponent('杨兵') }`);
+            xhr.send(null);
+        </script>
+
+
+
+        <script>
+
+        </script>
+
+        <form action="./data.json?user=杨兵" method="get">
+            <input type="password" name="password">
+            <input type="submit" value="提交">
+        </form>
+    </body>
+
+</html>

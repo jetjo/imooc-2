@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Expires属性</title>
+    </head>
+
+    <body>
+        打开浏览器控制台，查看Cookie
+        <script>
+            // const namevalue = `user=bing; expires=2100-01-01 00:00:00`;//得到的expires是session
+            // const namevalue = `user=%3B%3D%20; expires=${ new Date('2023-1-01 00:00:00') }`;// 得到的expires是2024-01-15T14:28:15.892Z
+            const namevalue = `user=${ encodeURIComponent('%3B%3D%20') }; expires=${ new Date('2023-1-01 00:00:00') }`;// 得到的expires是2024-01-15T14:28:15.892Z
+            // const namevalue = `user=${ encodeURIComponent(';= ') }; expires=${ new Date('2023-1-01 00:00:00') }`;// 得到的expires是2024-01-15T14:28:15.892Z
+            // const namevalue = `user=${ encodeURIComponent(';= ') };= ; expires=${ new Date('2023-1-01 00:00:00') }`;// 得到的expires是2024-01-15T14:28:15.892Z
+            // const namevalue = `user=${ encodeURIComponent('🧊') }; expires=${ new Date('2023-1-01 00:00:00') }`;// 得到的expires是2024-01-15T14:28:15.892Z
+            // const namevalue = `user=🧊; expires=${ new Date('2023-1-01 00:00:00') }`;// 得到的expires是2024-01-15T14:28:15.892Z
+            // const namevalue = `user=兵; expires=${ new Date('2023-1-01 00:00:00') }`;// 得到的expires是2024-01-15T14:28:15.892Z
+            // const namevalue = `user=bing; expires=${ new Date('2100-1-01 00:00:00') }`;// 得到的expires是2024-01-15T14:28:15.892Z
+            // const namevalue = `user=bing; expires=2025-01-01T00:00:00.000Z`;// 得到的expires是session
+            document.cookie = namevalue;
+            console.log({ namevalue, documentCookie: document.cookie, decodeCookie: decodeURIComponent(document.cookie) });
+            // console.log({ namevalue, documentCookie: document.cookie.replace('=', '=%'), decodeCookie: decodeURIComponent(document.cookie.replace('=', '=%')) });//Uncaught URIError: URI malformed
+        </script>
+    </body>
+
+</html>

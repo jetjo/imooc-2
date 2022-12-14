@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Domain</title>
+    </head>
+
+    <body>
+
+        使用js可以访问本域和父级域名的cookie， 比如 <br>
+        在www.imooc.com下设置一个cookie，如果想要在m.imooc.com上也能访问这个cookie， <br>
+        domain可以设置成“.imooc.com”, 注意前面一定要加"."。 <br>
+        path属性也一样，只能访问本级目录，和上级目录的cookie <br>
+
+        只有cookie的name、domain、path三个属性一样时，才是同一个cookie。<br>
+
+        domain的默认值是当前域名， path的默认值是根目录"/"
+
+        <br>这里的domain应该就是指的域名，和跨域中的域不是同一概念，因为跨域中的域由协议+域名+端口号组成，cookie不仅有domain属性
+        <br>设置域名，还有secure属性指定是否只能通过https方式发送cookie，所以domain是域名的意思，不是域。
+
+        <script>
+            //经测试，打开此页面设置了这个cookie后，再新开Tab访问cookie路径之外的一个文件，比如/ajax/概念.html，发现请求中未携带此cookie。
+            document.cookie = `useto=onlythispath; path=/cookie;`
+
+            ///ajax/概念.html，中既可以看到此cookie，在请求这个页面时也携带了这个cookie
+            document.cookie = `xxx=onlythispath; path=/;`
+
+            document.cookie = `ggg=onlythispath`
+
+        </script>
+
+        <br> domain和path的作用：Define where cookies are sent。<br>
+        不仅仅指定了哪些domain/path下的js API(document.cookie)可以访问到，
+        <br>而且也涉及到哪些请求中可以携带!!!
+        <br>
+        <img src="./截屏2022-12-14 下午8.59.43.png" width="400" alt=""> <br>
+        <img src="./截屏2022-12-14 下午9.00.39.png" width="400" alt=""> <br>
+        <img src="./截屏2022-12-14 下午9.01.07.png" width="400" alt=""> <br>
+        <img src="./截屏2022-12-14 下午9.01.33.png" width="400" alt=""> <br>
+    </body>
+
+</html>

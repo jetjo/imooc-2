@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>JSONP</title>
+    </head>
+
+    <body>
+
+        <script>
+            //后调函数名
+            const CALLBACK_NAME = '___jsonp___handleResponse'
+            //和后端约定好的JSONP接口
+            const url = `https://www.imooc.com/api/http/jsonp?callback=${ CALLBACK_NAME }`;
+
+            //准备好后调函数
+            window[CALLBACK_NAME] = function (data)
+            {
+                console.log(data, CALLBACK_NAME);
+            }
+
+            //最后一步 ，调用接口，方式一：直接在文档中静态放置一个js标签，src属性值是前面声明的url地址
+            //调用接口，方式二，动态插入js标签
+            const jsTag = document.createElement('script');
+            jsTag.src = url;
+            document.body.appendChild(jsTag);
+        </script>
+        <!-- <script src="https://www.imooc.com/api/http/jsonp?callback=___jsonp___handleResponse"></script> -->
+        打开浏览器控制台，切换到“网络”界面，请求类型一栏切换到“js”即可看到发起的JSONP请求。
+
+        <img src="./JSONP.png" alt="">
+    </body>
+
+</html>

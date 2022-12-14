@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+
+    <body>
+        打开浏览器控制台的网络页面，查看对此页面的请求中的cookie信息 <br>
+        <img src="./截屏2022-12-14 下午8.22.10.png" alt="" height="300">
+        <ul>
+            <li>secrue,当在前端使用js将一个cookie的secure属性设置为true时，这个cookie只有在https的请求中才会自动被发送到服务端。
+                <br>有助于防范man-in-the-middle attacks.
+                <br>Insecure sites (with http: in the URL) can't set cookies with the Secure attribute.
+                <br>但是设置了secure的持久性（设置了expires或max-age，且未过期的）cookie是存在于磁盘上的，有权访问磁盘文件的攻击者仍然有可能窃取到此cookie。
+                <br>设置了secure的cookie仍然能够在http打开的页面中使用js访问到。
+
+                <script>
+                    // document.cookie = 'user=bing;'
+                    // document.cookie = 'user=bing; secure;';//经测试，在http协议下的域中设置secure无效，可以手动在浏览器控制台中设置，然后将此行代码
+                    // 注释掉（防止覆盖手动设置的Secure属性），以便测试。。。
+                    // 经测试，手动设置也无效。。。
+                    //可能是因为本地测试的原因。。。
+
+                    const xhr = new XMLHttpRequest();
+                    xhr.open('GET', '../ajax/data.json');//此次请求并未自动携带cookie,//TODO:为什么？
+                    xhr.withCredentials = true;
+                    xhr.send(null);
+                </script>
+            </li>
+            <li>当服务端将一个携带在响应头中的cookie的httpOnly属性设置为true时，这个cookie不能在前端使用js的domain.cookie API访问。
+                <br>有助于防范cross-site scripting (XSS) attacks.
+            </li>
+            <li>Same-Site属性指定当定义cookie的 site(http或者https+域名)与http请求的site不同时，是否自动发送cookie
+                <br>默认值是lax，即不发送cookie, 但是当浏览器要从一个和定义cookie的site不一样的site导航到定义cookie的site时会自动发送
+                <br>Strict, 不发送
+                <br>none, 不限制 <br>
+                猜测：在一个跨域请求中，即使将xhr的withCredentials属性设置为true,如果same-site属性不是none的话，也仍然无法携带这个cookie.
+            </li>
+        </ul>
+        <script>
+            // document.cookie = "user=bing; samesite=None;";//无效
+            // document.cookie = "user=bing; samesite=None";//无效
+            // document.cookie = "user=bing; samesite=none;";//无效
+            // document.cookie = "user=bing; samesite=none";//无效
+            document.cookie = "user=bing; samesite=None; secure";//samesite的值none首字母大小写无所谓，但当将samesite的值设置为none时，必须设置secure
+            // document.cookie = "user=bing; samesite=strict;";//ok
+            // document.cookie = "user=bing; samesite=strict";//ok
+            // document.cookie = "user=bing; samesite=Strict;";//ok
+            // document.cookie = "user=bing; samesite=Strict";//ok
+
+            // document.cookie = "user=bing; samesite=lax;";//ok
+            // document.cookie = "user=bing; samesite=lax";//ok
+            // document.cookie = "user=bing; samesite=Lax;";//ok
+            // document.cookie = "user=bing; samesite=Lax";//ok
+
+            // 默认值是lax
+
+            // //以下请求，由于设置了跨域携带cookie,但是响应的Access-Control-Allow-Origin属性值时星号，不明确包含当前发起请求的域http://127.0.0.1:port,所以仍然
+            // // 引发了跨域异常
+            // const xhr1 = new XMLHttpRequest();
+            // xhr1.open('GET', 'https://www.imooc.com/api/http/search/suggest?words=js');
+            // xhr1.withCredentials = true;
+            // xhr1.send(null);
+
+            const xhr11 = new XMLHttpRequest();
+            xhr11.open('GET', 'http://127.0.0.1:3002/data.json');
+            // xhr11.withCredentials = true;
+            xhr11.send(null);
+        </script>
+
+        可见，一颗cookie是否能被请求携带上，有好多制约因素，：
+        首先domain和path要满足条件，使得最起码当前页面能看到这个cookie
+        <br>其次还受到same-site\secure以及请求对象的withCredentials的影响。。。
+    </body>
+
+</html>

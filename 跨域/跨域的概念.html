@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>跨域的概念</title>
+    </head>
+
+    <body>
+        域：协议（http或https）://域名:端口号/
+        <br>只要发起请求的域和被请求的域，它们的协议、域名、端口有一个不同，就属于跨域请求。<br>
+
+        <br> 跨域问题产生的原因：浏览器的同源策略导致（浏览器的锅），跨域被阻止时，其实浏览器已经收到了来自服务器的响应，但是<br>
+        浏览器发现这个是跨域的响应后把响应给丢弃了。。。
+        <br>
+        <br>
+        解决跨域问题的方案：<br>
+        1、CORS，跨域资源共享，浏览器不需要做什么，只需要服务端在跨域响应的响应头部放入CORS的相关设置便解决问题，缺点是老的浏览器不识别响应头部的CORS信息。
+        <br> 2、JSONP，就是在跨域请求中发送一个回调方法名（比如cb）,然后服务端以cb(response Data)的形式将数据返回，其实相当于返回了一段js代码，前端再将这段代码<br>
+        放在js标签内执行即可，不要忘记提前将cb函数准备好。JSONP的方案兼容性比较好。<br>
+
+
+    </body>
+
+</html>

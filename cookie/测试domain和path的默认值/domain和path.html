@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Domain</title>
+    </head>
+
+    <body>
+        <script>
+            //经测试，打开此页面设置了这个cookie后，再新开Tab访问cookie路径之外的一个文件，比如/ajax/概念.html，发现请求中未携带此cookie。
+            document.cookie = `useto=onlythispath; path=/cookie;`
+
+            ///ajax/概念.html，中既可以看到此cookie，在请求这个页面时也携带了这个cookie
+            document.cookie = `xxx=onlythispath; path=/;`
+
+            document.cookie = `ggg=onlythispath`
+
+        </script>
+
+        <br>
+        <img src="./截屏2022-12-14 下午9.16.21.png" width="400" alt=""> <br>
+        在/ajax/路径下启动另外一个vs code,然后在启动一个live serve
+        <br><img src="./截屏2022-12-14 下午9.32.03.png" width="400" alt="">
+        在新的Tab中访问/ajax/概念.html页面，打开控制台查看cookie发现，可以看到xxx cookie，可见cookie的domain只是指定了域名，不是域，只要域名相同或者
+        <br>当前页面的域名是定义cookie的域名的子域名即可
+        <br><img src="./截屏2022-12-14 下午9.38.54.png" width="400" alt=""><br>
+        <br><img src="./截屏2022-12-14 下午9.41.13.png" width="400" alt=""><br>
+
+        如果是在新的窗口中访问/ajax/概念.html页面，则没有xxx cookie，因为cookie默认是会话cookie，存在于内存中。
+        <br> <img src="./截屏2022-12-14 下午9.44.27.png" alt="">
+    </body>
+
+</html>

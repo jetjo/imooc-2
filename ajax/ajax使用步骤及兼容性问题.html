@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>使用及兼容性问题</title>
+    </head>
+
+    <body>
+        <ul>
+            <li>第一步实例化：const xhr = new XMLHttpRequest();//不是XMLHttprequest!!!</li>
+            <li>第二步准备：xhr.open(http method, url, isAsync)</li>
+            <li>第三步发送：xhr.send();
+                <ul>
+                    <li>请求体（body）需要携带的数据，是send方法的参数</li>
+                    <li>当http method是 GET等这类不能在请求体携带数据的http方法时，不用给send方法传递参数，<br> 但是为了兼容一些非常老的浏览器，需要send(null)</li>
+                </ul>
+            </li>
+            <li>第四步：添加事件监听xhr.onreadystatuschange,
+                <br>其次为了兼容性，一般实例化XMLHttpRequest后，就应该绑定此事件监听，也就是将这一步提到第二步前
+                <ul>
+                    <li>状态0表示还未调用open</li>
+                    <li>状态1表示已调用open，但还未调用send，请求未发送</li>
+                    <li>状态2表示已经调用send，但还未收到响应</li>
+                    <li>状态3表示已经收到部分响应数据</li>
+                    <li>状态4表示响应数据接收完毕</li>
+                </ul>
+                纠错：是onreadystatechange！！！
+            </li>
+            <li>第五步：根据状态码处理数据</li>
+        </ul>
+        <script>
+            const xhr = new XMLHttpRequest();
+            //如果不考虑兼容IE8及以下浏览器，可以使用如下方式监听事件：
+            // xhr.addEventListener('readystatechange', () => {}, false);
+            xhr.onreadystatechange = (_this, event) =>
+            {
+                //在这个上下文中this是xhr,但是使用this有兼容性问题
+                if (xhr.readyState === 4)
+                {
+                    console.log('数据接收完毕');
+                    if (xhr.status >= 200 && xhr.status < 300 || xhr.status === 304)
+                    {
+                        debugger;
+                        console.log('正确的响应', xhr.statusText, xhr.response, xhr.responseText, xhr.responseType);
+                    }
+                }
+            }
+            xhr.open('GET', './data.json', true, 'admin', 'admin123');//最后两个参数会以admin:admin123@的方式添加到请求地址的前面
+            xhr.send(null);
+        </script>
+    </body>
+
+</html>

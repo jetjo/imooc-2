@@ -1,7 +1,7 @@
 import { YCookie } from "../cookie-helper";
 // import { useDicts } from "@/composables/use-dicts";
-import { somethingAwaiter } from "../待改进/some-thing-awaitor";
-import { insertSortedStringArray, getIndexAtSortedStringArray } from '../字符串数组排序';
+import { somethingAwaiter } from "../../待改进/some-thing-awaitor";
+import { insertSortedStringArray, getIndexAtSortedStringArray } from '../../字符串数组排序';
 
 // const { dicts: dateRangeList } = useDicts('sys_date_range_type');
 

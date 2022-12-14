@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>CORS跨域资源共享</title>
+    </head>
+
+    <body>
+        CORS 完全由后端实现，前端浏览器是IE10版本及以上即可。
+        <br>CORS 其实就是通过在跨域响应的响应头中添加 Access-Control-Allow-Origin头信息实现的
+        <br>Access-Control-Allow-Origin的值是前后端约定好的允许发起跨域请求的域，比如https:127.0.0.1:1080s
+        <br> 也可以是通配符*号。
+        <br>因为IE10以下的浏览器不支持access-control-allow-origin，所以IE10以下的浏览器不能使用此方案解决跨域问题。
+
+    </body>
+
+</html>

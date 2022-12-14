@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>xhr属性</title>
+    </head>
+
+    <body>
+        <ul>
+            <li>responseText和response,当responseType未设置，默认值为空，或者设置为text时，response和responseText都可以获取到响应的文本信息
+                <br>，但是如果将responseType设置为json时，访问responseText属性会引发异常，此时应该访问response获取响应数据，这时，response的
+                <br> 值不再是字符串类型的响应数据，而是自动解析后的js对象。
+                <br>
+                <br>
+                兼容性：response属性从IE10开始支持。
+            </li>
+            <li>
+                <br>
+                <br>
+                timeout，设置超时时间，超过超时时间后请求被取消，同时引发xhr的timeout事件。
+                <br>
+                timeout属性从IE8开始支持。
+            </li>
+            <li>
+                <br>
+                <br>
+                withCredentials，设置在跨域请求中是否携带cookie。当设置为true时，如果获取到的跨域响应的响应头中，没有包含Access-Control-Allow-Origin <br>
+                头信息，或者Access-Control-Allow-Origin设置的是通配符“*”，又或者Access-Control-Allow-Origin设置的域中不包含当前发起请求的域，则会引发异常！！！
+                <br>兼容性：从IE10开始支持。
+
+            </li>
+        </ul>
+
+        <script>
+            const xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = () =>
+            {
+                if (xhr.readyState < 4) return;
+                if (xhr.status >= 200 && xhr.status < 300 || xhr.status === 304)
+                {
+                    console.log(xhr.response);//IE10开始支持
+                    // //引发异常：
+                    // // Uncaught DOMException: Failed to read the 'responseText' property from 'XMLHttpRequest': 
+                    // // The value is only accessible if the object's 'responseType' is '' or 'text' (was 'json').
+                    // console.log(xhr.responseText);
+                }
+            }
+            xhr.open('GET', '../data.json?name=bing');
+
+            document.cookie = 'name=yangbing'
+
+            // xhr.responseType = '';
+            // xhr.responseType = 'text';
+            xhr.responseType = 'json';
+
+            // xhr.timeout = 2;
+
+            xhr.send(null);
+
+        </script>
+    </body>
+
+</html>
