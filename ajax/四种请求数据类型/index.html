@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>请求数据类型</title>
+    </head>
+
+    <body>
+        <!-- <javascript>
+        const xhr = new XMLHttpRequest();
+    </javascript> -->
+        <form action="" enctype="text/plain"></form>
+        <script>
+            const url = `https://www.imooc.com/api/http/search/suggest?words=js`;
+            const url_json = `https://www.imooc.com/api/http/json/search/suggest?words=js`;
+            const xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = () =>
+            {
+                if (xhr.readyState !== 4) return;
+                if (xhr.status < 200 || xhr.status >= 300 && xhr.status !== 304) return;
+                console.log(xhr.response, xhr.statusText);
+            }
+            {
+                // xhr.open("GET", url, true);
+                xhr.open("POST", url, true);
+                // //默认值就是空, GET请求时不需要设置，因为这是设置请求体的数据类型的，
+                // // 也就是xhr.send方法的参数的数据类型
+                // //如果设置的数据类型，后端接口不支持也会报错
+                // // Access to XMLHttpRequest at 'https://www.imooc.com/api/http/search/suggest?words=js' 
+                // // from origin 'http://127.0.0.1:3000' has been blocked by CORS policy: 
+                // // Request header field content-type is not allowed by Access-Control-Allow-Headers in preflight response.
+                // // xhr.setRequestHeader('Content-Type', '');
+
+                // xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+                // xhr.responseType = "json";
+                // // xhr.send(null);
+                // // send的参数要想能够发送到后端，首先请求方法不能是GET,
+                // // 其次请求头中的Content-Type也要对应
+                // // 名值对之间使用一个&连接，不是两个！！！
+                // // xhr.send('username=bing&&age=18');//名值对，x-www-form-urlencoded,
+                // xhr.send('username=bing&age=19');
+            }
+            {
+                // xhr.open("POST", url_json, true);
+                // xhr.setRequestHeader('Content-Type', 'application/json');
+
+                // xhr.responseType = "json";
+                // xhr.send(JSON.stringify({
+                //     username: 'bing',
+                //     age: 18
+                // }))
+            }
+            {
+                xhr.open("POST", url, true);
+                xhr.setRequestHeader('Content-Type', 'text/plain');
+
+                xhr.responseType = "json";
+                xhr.send('username=bing&age=19');
+            }
+        </script>
+    </body>
+
+</html>

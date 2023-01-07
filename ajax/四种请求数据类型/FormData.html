@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>FormData</title>
+    </head>
+
+    <body>
+        <form action="https://www.imooc.com/api/http/search/suggest?words=js" method="post"
+            enctype="application/x-www-form-urlencoded" id="login">
+            <input type="text" name="username" data-prop1="imooc!!!" placeholder="用户名" />
+            <input type="password" name="password" placeholder="密码" />
+            <input id="submit" type="submit" value="登录">
+        </form>
+
+        <br><br>FormData的用法：
+        <br>1、new FormData(表单实例)， 可以不传表单实例
+        <br>2、data.append(名, 值); 可选
+        <br>3、xhr.send(data);
+        <br>4、 从IE10开始支持
+
+        <script>
+            // 直接使用form的submit按钮提交，页面会跳转
+            const login = document.getElementById('login');
+            const { username, password } = login;
+            console.log({ username, password });
+
+            const url = 'https://www.imooc.com/api/http/search/suggest?words=js';
+            // if(!submit) submit = document.getElementById('submit');
+            submit.addEventListener('click', (e) =>
+            {
+                //阻止表单自动提交
+                e.preventDefault();
+
+                // 验证表单。。。
+
+                const xhr = new XMLHttpRequest();
+
+                xhr.addEventListener('load', () =>
+                {
+                    console.log(xhr.response, xhr.statusText);
+                }, false);
+
+                xhr.open('POST', url, true);
+
+                //组织数据
+                // const data = `username=${ username.value }&password=${ password.value }`;
+                const data = new FormData(login);
+                data.append('age', 18);
+                data.append('sex', 'male');
+                for (const [key, value] of data)
+                {
+                    console.log([key, value]);
+                }
+
+                // 当send方法的参数是FormData的实例时，Content-Type会被自动设置为类似multipart / form - data; boundary = ----WebKitFormBoundaryp2Akq5X2BdQPmN9J的形式，不用手动设置
+                // xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+                xhr.responseType = "json";
+
+                xhr.send(data);
+            }, false)
+        </script>
+    </body>
+
+</html>

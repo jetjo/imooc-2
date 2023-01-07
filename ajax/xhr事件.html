@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>xhr事件</title>
+    </head>
+
+    <body>
+        <ul>
+            <li>onload事件，即xhr的readyState等于4时触发的事件
+                <br> ， 可以用来代替onreadystatechange事件。
+                <br>，onload事件可以搭配addEventListener方法使用，
+                <br>，onload与addEventListener一样都是从IE9开始支持的。
+            </li>
+            <li>error事件，请求出错时触发，并不是获取到了错误的响应，而是请求发送时就出错了，
+                从IE10开始支持
+            </li>
+            <li>abort事件，从IE10开始支持，调用send后再获取到响应前调用abort方法触发。
+
+            </li>
+            <li>timeout事件，从IE8开始支持</li>
+        </ul>
+        <script>
+            // 1、onload事件
+            const xhr = new XMLHttpRequest();
+            xhr.addEventListener('load', () =>
+            {
+                if (xhr.status < 200 || xhr.status >= 300 && xhr.status !== 304) return;
+                console.log(xhr.response, xhr.statusText);
+            }, false);
+        </script>
+    </body>
+
+</html>
