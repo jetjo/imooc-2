@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Reflect和Proxy</title>
+    </head>
+
+    <body>
+        <p>
+        <h2><a
+                href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Reflect">Reflect</a>
+        </h2>
+        <h2><a
+                href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy/Proxy">Proxy/handler</a>
+        </h2>
+        </p>
+    </body>
+    <p>
+        Reflect不能使用new关键字实例化，只能打点调用其静态方法，通常配合Proxy使用 <br>
+        Proxy使用时，需要使用new 关键字实例化，构造函数需要两个参数，一个是要代理的target，一个是要代理（捕获）的对target的操作
+    </p>
+    <script>
+        // apply
+        function ordinaryFunc()
+        {
+            console.log('我被apply了', { arguments, thisArg: this });
+        }
+        const funcProxy = new Proxy(ordinaryFunc, {
+            apply(target, thisArg, args)
+            {
+                console.log('捕获到了ordinaryFunc的apply', { arguments, thisArg: this });
+                // console.log('target === ordinaryFunc //', target === ordinaryFunc);
+                // return Reflect.apply(...arguments)
+                // NOTE: Reflect.apply的args不能省略
+                return Reflect.apply(target, thisArg, args || [])
+            }
+        });
+        ordinaryFunc();//不能捕获
+        ordinaryFunc.apply(null);//不能捕获
+        ordinaryFunc.call(null);//不能捕获
+
+        funcProxy();
+        funcProxy.apply(null);
+        funcProxy.call(null);
+
+    </script>
+
+</html>

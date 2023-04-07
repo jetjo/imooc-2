@@ -12,19 +12,86 @@
         <script>
             function Cat()
             {
+                // NOTE: new.target 是一个元属性（new.target）
+                // NOTE: 参见MDN：https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/new.target
+                // 这样判断后，该函数只能以new Ctor()或者Reflect.constructor(Ctor, args, Ctor)的形式调用
+                if (!new.target) throw new TypeError('calling Foo constructor without new is invalid');
+                // NOTE: // 没必要了
+                // if(this instanceof Cat) {
+                //     return new Cat();
+                // }
                 this.name = 'xxx'
             }
             const cat = new Cat();
             // 等价于
             const catEqu = (function ()
             {
-                // const _ = Cat.apply({});
-                // const _ = {};
-                const _ = { __proto__: Cat.prototype, constructor: function () { } };
-                Cat.apply(_);
-                return _;
+                // // const _ = Cat.apply({});
+                // // const _ = {};
+                // const _ = { __proto__: Cat.prototype, constructor: function () { } };
+                // // NOTE: 经过后续测试，得知，不是这样
+                // // Cat.apply(_);
+                // // NOTE: 应该是这样
+                // // NOTE: 查阅MDN知，bind无法再次改变一个已经bind过this的函数的this
+                // // Cat.bind(_)();
+                // return _;
+                // NOTE: 查阅MDN知，使用Reflect.constructor方法可以确保this始终指向构造函数，即使构造函数是一个bound-Constructor
+                // reflective-semantic-style: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Reflect/construct
+                return Reflect.construct(Cat, [], Cat)
             })();
             console.log(catEqu instanceof Cat, catEqu);
+        </script>
+
+        <script>
+            function _Dog(age, name, weight)
+            {
+                console.log(arguments);
+                this.age = age;
+                this.name = name;
+                this.weight = weight;
+                return this;
+            }
+            const thisDog = { name: 'douDing' }
+            const Dog = _Dog.bind(thisDog, 1, 'a');
+
+            // NOTE: 测得，使用new 时，bind的this失效了
+            // const dog = new Dog('10kg');
+            // const dog2 = new Dog('100kg');
+
+            // NOTE: 测得，使用apply无法更改bind的this
+            // // const dog = Dog.apply({}, '10kg');// caught TypeError: CreateListFromArrayLike called on non-object
+            const dog = Dog.apply({}, ['10kg']);
+            // const dog2 = Dog.apply({}, ['100kg']);
+
+            // NOTE: 测得，使用call也无法更改bind的this
+            // const dog = Dog.call({}, '10kg');
+            const dog2 = Dog.call({}, '100kg');
+
+            // const dog = Dog('10kg');
+            // const dog2 = Dog('100kg');
+            const dog3 = Dog('1000kg');
+
+            // NOTE: 测得，对一个boundFunction再次绑定另外的this是无效的，但是后续的参数还是有效的。
+            // 参见：https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind#description
+            const boundDog = Dog.bind({}, '233ke', 'xxx');
+            const dog4 = boundDog('999kg');
+
+            const dog5 = Reflect.construct(boundDog, ['my dog']);
+
+            console.log({ thisDog, dog, dog2, dog3, dog4, dog5 });
+            console.log(thisDog === dog);
+            console.log(thisDog === dog2);
+            console.log(thisDog === dog3);
+            console.log(thisDog === dog4);
+            console.log(thisDog === dog5);
+        </script>
+        <script>
+            const singleTiger = {}
+            function Tiger()
+            {
+                return singleTiger;
+            }
+            // console.log(new Tiger() === new Tiger());
         </script>
     </body>
 
