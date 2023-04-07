@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>instanceof</title>
+    </head>
+
+    <body>
+        <p>
+            <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/instanceof">参见MDN</a>
+            <br>
+            The instanceof operator tests to see if the prototype property of a constructor appears anywhere in the
+            prototype chain
+            of an object. The return value is a boolean value. Its behavior can be customized with
+            <a
+                href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol/hasInstance">Symbol.hasInstance</a>
+            .
+        </p>
+        <script>
+            function isArr(instance)
+            {
+                return Array.isArray(instance)
+            }
+            function MyFoolArray() { }
+            MyFoolArray[Symbol.hasInstance] = isArr;
+
+            console.log(new MyFoolArray());
+
+            function MyArray() { }
+            Object.defineProperty(MyArray, Symbol.hasInstance, {
+                value: isArr
+            })
+            console.log(new MyArray());
+
+            console.log([] instanceof MyFoolArray);
+            console.log([] instanceof MyArray);
+        </script>
+    </body>
+
+</html>

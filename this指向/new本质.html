@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>new 本质</title>
+    </head>
+
+    <body>
+        <script>
+            function Cat()
+            {
+                this.name = 'xxx'
+            }
+            const cat = new Cat();
+            // 等价于
+            const catEqu = (function ()
+            {
+                // const _ = Cat.apply({});
+                // const _ = {};
+                const _ = { __proto__: Cat.prototype, constructor: function () { } };
+                Cat.apply(_);
+                return _;
+            })();
+            console.log(catEqu instanceof Cat, catEqu);
+        </script>
+    </body>
+
+</html>
