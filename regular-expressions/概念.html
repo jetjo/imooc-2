@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>正则表达式概念</title>
+    </head>
+
+    <body>
+        按位描述字符串构成模式的表达式，Regular Expression， 构造函数RegExp。 <br>
+        构成表达式的字条目有： <br>
+        <ul>
+            <li>
+                <h3>元字符</h3>
+                <ul>
+                    <li>/：表达式字面量的开头和结尾符号</li>
+                    <li>^：匹配一个字符串开头，或者在中括号中取反</li>
+                    <li>$：匹配一个字符串结尾</li>
+                    <li>\d：匹配一个数字</li>
+                    <li>\D：匹配一个非数字</li>
+                    <li>\w：匹配一个数字、大小写字母、下划线</li>
+                    <li>\W：\w的对立面</li>
+                    <li>\s：匹配一个空白字符</li>
+                    <li>.：匹配任意一个字符</li>
+                    <li>[]：定制字符集</li>
+                    <li>()：分组以整体匹配</li>
+                    <li>\：转义</li>
+                </ul>
+            </li>
+            <li>
+                <h3>量词</h3>
+                <ul>
+                    <li>*：匹配任意数量，相当于{0, }</li>
+                    <li>+：匹配至少一位，相当于{1, }，贪婪模式</li>
+                    <li>?：匹配0位或1位，相当于{0, 1}</li>
+                    <li>{n}：匹配n位</li>
+                    <li>{n, }：匹配至少n位</li>
+                    <li>{, m}：匹配至多m位</li>
+                    <li>{n, m}：匹配n-m位</li>
+                </ul>
+            </li>
+            <li>
+                <h3>修饰符</h3>
+                <ul>
+                    <li>g： 全局匹配，正则表达式是有状态的</li>
+                    <li>i：不区分大小写匹配</li>
+                </ul>
+            </li>
+        </ul>
+    </body>
+
+</html>
