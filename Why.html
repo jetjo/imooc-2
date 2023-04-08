@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>一个诡异现象</title>
+    </head>
+
+    <body>
+        <h2>第一个诡异现象</h2>
+        <figure>
+            <figcaption>假如html文件名以问号结尾，会发生404错误，原因可能是浏览器把问号当成了queryParams的开始标识符了, 在没有使用encodeURIComponent编码问号时
+            </figcaption>
+            <img src="./文件名中不能包含问号.png" alt="" width="40%">
+            <img src="./不能使用问号命名文件.png" alt="" width="40%">
+        </figure>
+        <h2>第二个诡异现象</h2>
+        <figure>
+            <figcaption>不要在函数签名和函数体之间插入注释。。。
+            </figcaption>
+            <pre>
+                &lt;script>
+                    function f1() //？？？此处的注释会引发下图的问题
+                    //？？？此处的注释也会引发下图的问题
+                    { }
+
+                    function f2() { }
+
+                    f2.prototype = new f1();
+                    f2.prototype.constructor = f2;
+
+                    console.log(new f2());
+                &lt;/script>
+            </pre>
+            <img src="./在函数签名和函数体之间添加注释后的诡异现象.png" alt="" width="40%">
+            <img src="./错误的注释习惯.png" alt="" width="40%">
+        </figure>
+        <script>
+            function f1() //？？？此处的注释会引发下图的问题
+            //？？？此处的注释也会引发下图的问题
+            { }
+
+            function f2() { }
+
+            f2.prototype = new f1();
+            f2.prototype.constructor = f2;
+
+            console.log(new f2());
+        </script>
+    </body>
+
+</html>
