@@ -30,6 +30,8 @@ export const YCookie = (function _YCookie()
       // const reg = new RegExp(`${ name }=(?<value>[^\;\=\s]*);?`);// /{name}=(?<value>[^;=s]*);?/
       // NOTE: 正则中"[^\\;\\=\\s]"的后面的量词不能是“+”，因为假如当前路径下有对应名字的cookie,但是值是空字符串，则匹配不到了！！！
       // const reg = new RegExp(`${ name }=(?<value>[^\\;\\=\\s]+);?`, 'g');// /{name}=(?<value>[^;=s]*);?/
+      // const reg = new RegExp(`${ name }=(?<value>[^\\;\\=]*);?`, 'g');// /{name}=(?<value>[^;=s]*);?/
+      // NOTE: 因为在set时，值中的空白已被编码，所以可以使用“\s”元字符排除空格
       const reg = new RegExp(`${ name }=(?<value>[^\\;\\=\\s]*);?`, 'g');// /{name}=(?<value>[^;=s]*);?/
 
       // reg.exec(document.cookie);
@@ -59,6 +61,7 @@ export const YCookie = (function _YCookie()
       // let expires = new Date();
       // expires = new Date(expires.getFullYear() + 3, 0, 1, 0, 0, 0, 0);
       if (!name) return;
+      // let s = `${ encodeURIComponent(name) }=${ encodeURIComponent(value) + '  ' + 'yeah!!!' }; `;
       let s = `${ encodeURIComponent(name) }=${ encodeURIComponent(value) }; `;
       maxAge = Number(maxAge);
       if (!isNaN(maxAge))

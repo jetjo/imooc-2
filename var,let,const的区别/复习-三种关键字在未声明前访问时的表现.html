@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>三种关键字在未声明前访问时的表现</title>
+    </head>
+
+    <body>
+        <script>
+            console.log(a);
+            var a = 0;
+        </script>
+        <script>
+            console.log(b);
+            let b = 0;
+        </script>
+        <script type="module" async="">
+            // <script>
+            console.log(c);
+            const c = 0;
+        </script>
+
+        <script>
+            var va = 'va';
+            function func1()
+            {
+                console.log(va);
+                var va = '000'
+            }
+            func1();
+        </script>
+        <script>
+            let la = 'la';
+            function func2()
+            {
+                console.log(la);
+                let la = '000'
+            }
+            func2();
+        </script>
+        <script>
+            const ca = 'ca';
+            function func3()
+            {
+                console.log(ca);
+                const ca = '000'
+            }
+            func3();
+        </script>
+    </body>
+
+</html>

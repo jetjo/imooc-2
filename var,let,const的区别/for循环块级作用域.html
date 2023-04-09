@@ -16,14 +16,16 @@
             <li>CSS3</li>
             <li>ES6</li>
         </ul>
+        <!-- 复习，又看了一遍。。。 -->
         for循环中，每循环一次就会创建一个块级作用域！！！，所以使用let声明计数器，则每次循环之间的i是属于每次循环各自的块作用域实例的！！！
         <script type="text/javascript">
             //补充代码
             const lis = document.querySelectorAll('li');
             // lis.foreach((e, i) => {
             // });
-            for (let i = 0; i < lis.length; i++)
+            for (let i = 0/* NOTE: 在这里用let声明，相当于在循环块内部用let声明！！！ */; i < lis.length; i++)
             {
+                // let i = 0;
                 //事件名称不是mouseEnter，而是mouseenter!!!
                 lis[i].addEventListener('mouseenter', (e) =>
                 {
