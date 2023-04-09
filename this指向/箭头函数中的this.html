@@ -23,6 +23,43 @@
         出现在普通函数内部的所有箭头函数，即使箭头函数与箭头函数之间也有包含关系，这无所谓，
         这个普通函数被调用一次，那么这些箭头函数就会在内存中产生一个实例，所有这些实例的this,都绑定到了普通函数执行时，这个普通函数所形成的作用域上；
         这个普通函数在被调用一次，那么又会在内存中产生一批新的箭头函数的实例，这些实例和之前调用这个普通函数形成的箭头函数的实例不是一个。
+
+        <p>
+            <br><mark>普通函数中的this是在函数被调用时根据调用方式(本质是谁在调用)确定的；</mark>
+            <br><mark>绑定函数中的this是在绑定函数第一次通过ordinaryFunc.bind(thisArg)生成时确定的，除了使用new调用，其他情形下this就是thisArg；再次在绑定函数上执行boundedFunc.bind()不会改变初次绑定的this</mark>
+            <br><mark>箭头函数中的this是在箭头函数生成时确定的；生成箭头函数的作用域中的this是谁，箭头函数的this就是谁，即使使用arrowFunc.apply()或者arrowFunc.call()的方式调用也无法改变（箭头函数不能使用new调用）</mark>
+            <br><mark>立即执行函数表达式中的this是？？？</mark>
+            <script type="module">
+                // <script>
+                // NOTE: 非严格模式下，寻找this时如果找不到，就是undefined，只是后续被转换为了window
+                function ordinaryFunc()
+                {
+                    (function ()
+                    {
+                        // 普通函数有自己的this
+                        console.log('this: ', this);
+                    })();
+                    // NOTE: 这种不是立即执行函数表达式？？？
+                    (() =>
+                    {
+                        // 箭头函数没有自己的this
+                        console.log('this: ', this);
+                    })();
+                    (function ()
+                    {
+                        // 普通函数有自己的this
+                        console.log('this: ', this);
+                    }).apply({ x: '' });
+                    // NOTE: 这种不是立即执行函数表达式？？？
+                    (() =>
+                    {
+                        // 箭头函数没有自己的this
+                        console.log('this: ', this);
+                    }).apply({ xx: '' });
+                }
+                ordinaryFunc.apply({ x: '000' });
+            </script>
+        </p>
         <script>
             const obj = {
                 fn: function ()

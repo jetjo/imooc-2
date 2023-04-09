@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>箭头函数不能作为构造函数的原因</title>
+    </head>
+
+    <body>
+        <script type="module">
+            // <script>
+            //NOTE:  module类型的script块默认开启了严格模式，省略var\let\const关键字声明顶级变量引发异常
+            // a = 1; //ReferenceError: a is not defined
+            const arrowFunc = (name) =>
+            {
+                //  NOTE: 因为箭头函数中的this不能重新指向新实例化的对象，所以箭头函数做构造函数也就不合理了
+                this.name = name;
+            }
+            // new arrowFunc(); // TypeError: arrowFunc is not a constructor
+
+            new (function (name)
+            {
+                arrowFunc(name);
+            })('bing');
+        </script>
+    </body>
+
+</html>
