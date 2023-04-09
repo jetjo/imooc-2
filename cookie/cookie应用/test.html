@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Test</title>
+    </head>
+
+    <body>
+        <script type="module">
+            import { YCookie } from '../cookie-helper.js';
+
+            // YCookie.get = null;
+            // YCookie.set = null;
+            YCookie.test.test = 'null'; // TypeError: Cannot assign to read only property 'remove' of function 'function _YCookie
+            YCookie.test.remove = 'null'; // TypeError: Cannot add property removeyyy, object is not extensible
+
+
+            const { get, set, remove } = YCookie;
+            console.log({ get, set, remove, YCookie, _y: YCookie() === YCookie });
+            remove(' Goal');
+            remove(' Goal', { path: '/cookie' });
+            remove(' Goal', { path: '/cookie/cookie应用' });
+
+            // NOTE: 测得, 如果添加两个同名的cookie，读取document.cookie获得的字符串中，这两个同名cookie出现的位置前后
+            // NOTE: 与添加顺序无关，比如如下两个cookie同名，在“/cookie” path下，访问document.cookie时，总是路径为“/cookie”的cookie出现在最前面，即使调换两句的位置
+            set(' Goal', 'fuck all beauty girls on the world!!!', { samesite: 'strict' })
+            // set(' Goal', '艹遍天下s美女s！！！', { samesite: 'strict' })
+            // set(' Goal', '', { path: '/cookie', expires: new Date('2030-01-01') })
+            set(' Goal', '', { path: '/cookie', expires: new Date('2030-01-01') })
+            // set(' Goal', 'cccc', { path: '/cookie/cookie应用', expires: new Date('2030-01-01') })
+            // NOTE: 这里虽然没有指定cookie的path,但始终是获取本路径下或者离自己最近的上级路径下的cookie
+            console.log(get(' Goal'));
+
+        </script>
+        <!-- <script type="module" src="./cookie-helper.js"></script> -->
+    </body>
+
+</html>
